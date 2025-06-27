@@ -3,6 +3,7 @@ import { Modal } from "./Modal";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { createEmployer } from "./redux/employerSlice";
+import { Form, Input, Button } from 'antd';
 
 
 
@@ -41,6 +42,21 @@ export const Home = () => {
 	const handleClose = () => {
 		setIsOpen(false);
 	}
+
+
+
+
+	const onFinish = (value) => {
+		console.log('Success:', value);
+	}
+
+	const onFinishFailed = (errorInfo) => {
+		console.log('Failed:', errorInfo);
+	}
+
+
+
+
 	  return (
 	<>
 	<div className="title">
@@ -49,7 +65,7 @@ export const Home = () => {
 		<div className="container">
 			<a href="employee-list.html">View Current Employees</a>
 			<h2>Create Employee</h2>
-			<form ref={formRef} id="create-employee">
+			{/* <form ref={formRef} id="create-employee">
 				<label htmlFor="first-name">First Name</label>
 				<input type="text" id="first-name" name="firstName" />
 
@@ -92,7 +108,25 @@ export const Home = () => {
 				<option>Human Resources</option>
 				<option>Legal</option>
 				</select>
-			</form>
+			</form> */}
+
+			<Form
+			onFinish={onFinish}
+			onFinishFailed={onFinishFailed}
+			>
+				<Form.Item
+					label="Username"
+					name="username"
+					rules={[{ required: true, message: 'Please input your username!' }]}
+				>
+     			 	<Input />
+    			</Form.Item>
+<Form.Item label={null}>
+      <Button type="primary" htmlType="submit">
+        Submit
+      </Button>
+    </Form.Item>
+			</Form>
 			<button onClick={handleSave}>Save</button>
 		</div>
 		<Modal
