@@ -34,6 +34,7 @@ export const Home = () => {
 		const formData = new FormData(formRef.current);
 		const data = Object.fromEntries(formData.entries());
 		data.state = state;
+		data.department = department;
 		console.log(data);
 		let size = Object.values(data).filter((value) =>  value === "")
 		if(size.length > 0){
