@@ -3,24 +3,26 @@ import { Modal } from "./Modal";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { createEmployer } from "./redux/employerSlice";
-import { Form, Input, Button } from 'antd';
+import { Select } from 'antd';
 
 
 
 export const Home = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const formRef = useRef(null);
-	const [employer, setEmployer] = useState({
-		firstName: "",
-		lastName: "",
-		dateOfBirth: "",
-		startDate: "",
-		street: "",		
-		city: "",
-		state: "",
-		zipCode: "",
-		department: ""
-	});
+	// const [employer, setEmployer] = useState({
+	// 	firstName: "",
+	// 	lastName: "",
+	// 	dateOfBirth: "",
+	// 	startDate: "",
+	// 	street: "",		
+	// 	city: "",
+	// 	state: "",
+	// 	zipCode: "",
+	// 	department: ""
+	// });
+	const [state, setState] = useState("AL")
+	const [department, setDepartment] = useState("Sales");
 
 	const dispatch = useDispatch()
 	const employerData = useSelector((state) => state.employers.employers);
@@ -31,6 +33,7 @@ export const Home = () => {
 		e.preventDefault();
 		const formData = new FormData(formRef.current);
 		const data = Object.fromEntries(formData.entries());
+		data.state = state;
 		console.log(data);
 		let size = Object.values(data).filter((value) =>  value === "")
 		if(size.length > 0){
@@ -43,20 +46,6 @@ export const Home = () => {
 		setIsOpen(false);
 	}
 
-
-
-
-	const onFinish = (value) => {
-		console.log('Success:', value);
-	}
-
-	const onFinishFailed = (errorInfo) => {
-		console.log('Failed:', errorInfo);
-	}
-
-
-
-
 	  return (
 	<>
 	<div className="title">
@@ -65,7 +54,7 @@ export const Home = () => {
 		<div className="container">
 			<a href="employee-list.html">View Current Employees</a>
 			<h2>Create Employee</h2>
-			{/* <form ref={formRef} id="create-employee">
+			<form ref={formRef} id="create-employee">
 				<label htmlFor="first-name">First Name</label>
 				<input type="text" id="first-name" name="firstName" />
 
@@ -88,29 +77,29 @@ export const Home = () => {
 				<input id="city" type="text" name="city" />
 
 				<label htmlFor="state">State</label>
-				<select name="state" id="state">
-				{states.map((state) => (
-					<option key={state.abbreviation} value={state.abbreviation}>
-						{state.name}
-					</option>
-				))}
-				</select>
+				<Select id="state" name="state" value={state} onChange={(value) => setState(value)}>
+					{states.map((state) => (
+						<Select.Option key={state.abbreviation} value={state.abbreviation}>
+							{state.name}
+						</Select.Option>
+					))}
+				</Select>
 
 				<label htmlFor="zip-code">Zip Code</label>
 				<input id="zip-code" type="number" name="zipCode" />
 				</fieldset>
 
 				<label htmlFor="department">Department</label>
-				<select name="department" id="department">
-				<option>Sales</option>
-				<option>Marketing</option>
-				<option>Engineering</option>
-				<option>Human Resources</option>
-				<option>Legal</option>
-				</select>
-			</form> */}
+				<Select id="department" name="department" value={department} onChange={(value) => setDepartment(value)}>
+					<Select.Option value="Sales">Sales</Select.Option>
+					<Select.Option value="Marketing">Marketing</Select.Option>
+					<Select.Option value="Engineering">Engineering</Select.Option>
+					<Select.Option value="Human Resources">Human Resources</Select.Option>
+					<Select.Option value="Legal">Legal</Select.Option>
+				</Select>
+			</form>
 
-			<Form
+			{/* <Form
 			onFinish={onFinish}
 			onFinishFailed={onFinishFailed}
 			>
@@ -126,7 +115,7 @@ export const Home = () => {
         Submit
       </Button>
     </Form.Item>
-			</Form>
+			</Form> */}
 			<button onClick={handleSave}>Save</button>
 		</div>
 		<Modal
