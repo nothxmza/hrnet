@@ -3,26 +3,18 @@ import { Modal } from "./Modal";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { createEmployer } from "./redux/employerSlice";
-import { Select } from 'antd';
+import { Select, DatePicker } from 'antd';
+import { Link } from "react-router";
 
 
 
 export const Home = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const formRef = useRef(null);
-	// const [employer, setEmployer] = useState({
-	// 	firstName: "",
-	// 	lastName: "",
-	// 	dateOfBirth: "",
-	// 	startDate: "",
-	// 	street: "",		
-	// 	city: "",
-	// 	state: "",
-	// 	zipCode: "",
-	// 	department: ""
-	// });
 	const [state, setState] = useState("AL")
 	const [department, setDepartment] = useState("Sales");
+	const [dateOfBirth, setDateOfBirth] = useState("");
+	const [startDate, setStartDate] = useState("");
 
 	const dispatch = useDispatch()
 	const employerData = useSelector((state) => state.employers.employers);
@@ -33,6 +25,8 @@ export const Home = () => {
 		e.preventDefault();
 		const formData = new FormData(formRef.current);
 		const data = Object.fromEntries(formData.entries());
+		data.dateOfBirth = dateOfBirth;
+		data.startDate = startDate;
 		data.state = state;
 		data.department = department;
 		console.log(data);
@@ -53,7 +47,7 @@ export const Home = () => {
 			<h1>HRnet</h1>
 		</div>
 		<div className="container">
-			<a href="employee-list.html">View Current Employees</a>
+			<Link to="/employees-list">ICICICICI</Link>
 			<h2>Create Employee</h2>
 			<form ref={formRef} id="create-employee">
 				<label htmlFor="first-name">First Name</label>
@@ -63,10 +57,10 @@ export const Home = () => {
 				<input type="text" id="last-name" name="lastName" />
 
 				<label htmlFor="date-of-birth">Date of Birth</label>
-				<input id="date-of-birth" type="text" name="dateOfBirth" />
+				<DatePicker id="date-of-birth" onChange={(date, dateString) => setDateOfBirth(dateString)} />
 
 				<label htmlFor="start-date">Start Date</label>
-				<input id="start-date" type="text" name="startDate" />
+				 <DatePicker id="start-date" onChange={(date, dateString) => setStartDate(dateString) } />
 
 				<fieldset className="address">
 				<legend>Address</legend>
@@ -99,24 +93,6 @@ export const Home = () => {
 					<Select.Option value="Legal">Legal</Select.Option>
 				</Select>
 			</form>
-
-			{/* <Form
-			onFinish={onFinish}
-			onFinishFailed={onFinishFailed}
-			>
-				<Form.Item
-					label="Username"
-					name="username"
-					rules={[{ required: true, message: 'Please input your username!' }]}
-				>
-     			 	<Input />
-    			</Form.Item>
-<Form.Item label={null}>
-      <Button type="primary" htmlType="submit">
-        Submit
-      </Button>
-    </Form.Item>
-			</Form> */}
 			<button onClick={handleSave}>Save</button>
 		</div>
 		<Modal
