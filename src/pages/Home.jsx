@@ -1,11 +1,11 @@
-import { states } from "./data/states";
-import { Modal } from "./Modal";
+import { states } from "../data/states";
+import { Modal } from "../components/Modal";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { createEmployer } from "./redux/employerSlice";
+import { createEmployer } from "../redux/employerSlice";
 import { Select, DatePicker } from 'antd';
 import { Link } from "react-router";
-
+import dayjs from 'dayjs';
 
 
 export const Home = () => {
@@ -36,6 +36,11 @@ export const Home = () => {
 		}
 		dispatch(createEmployer(data));
 		setIsOpen(true);
+		formRef.current.reset();
+		setState("AL");
+		setDepartment("Sales");
+		setDateOfBirth("");
+		setStartDate("");
 	}
 	const handleClose = () => {
 		setIsOpen(false);
@@ -47,7 +52,7 @@ export const Home = () => {
 			<h1>HRnet</h1>
 		</div>
 		<div className="container">
-			<Link to="/employees-list">ICICICICI</Link>
+			<Link to="/employees-list" style={{marginBottom: 5}}>View Current Employees</Link>
 			<h2>Create Employee</h2>
 			<form ref={formRef} id="create-employee">
 				<label htmlFor="first-name">First Name</label>
@@ -57,10 +62,10 @@ export const Home = () => {
 				<input type="text" id="last-name" name="lastName" />
 
 				<label htmlFor="date-of-birth">Date of Birth</label>
-				<DatePicker id="date-of-birth" onChange={(date, dateString) => setDateOfBirth(dateString)} />
+				<DatePicker id="date-of-birth"  value={dateOfBirth ? dayjs(dateOfBirth,"YYYY-MM-DD") : null} onChange={(date, dateString) => setDateOfBirth(dateString)} />
 
 				<label htmlFor="start-date">Start Date</label>
-				 <DatePicker id="start-date" onChange={(date, dateString) => setStartDate(dateString) } />
+				 <DatePicker id="start-date" value={startDate ? dayjs(startDate,"YYYY-MM-DD") : null} onChange={(date, dateString) => setStartDate(dateString) } />
 
 				<fieldset className="address">
 				<legend>Address</legend>
@@ -72,7 +77,7 @@ export const Home = () => {
 				<input id="city" type="text" name="city" />
 
 				<label htmlFor="state">State</label>
-				<Select id="state" name="state" value={state} onChange={(value) => setState(value)}>
+				<Select id="state" name="state" value={state} onChange={(value) => setState(value)} style={{width: 200}}>
 					{states.map((state) => (
 						<Select.Option key={state.abbreviation} value={state.abbreviation}>
 							{state.name}
@@ -85,7 +90,7 @@ export const Home = () => {
 				</fieldset>
 
 				<label htmlFor="department">Department</label>
-				<Select id="department" name="department" value={department} onChange={(value) => setDepartment(value)}>
+				<Select id="department" name="department" value={department} onChange={(value) => setDepartment(value)} style={{width: 200}}>
 					<Select.Option value="Sales">Sales</Select.Option>
 					<Select.Option value="Marketing">Marketing</Select.Option>
 					<Select.Option value="Engineering">Engineering</Select.Option>
@@ -93,7 +98,7 @@ export const Home = () => {
 					<Select.Option value="Legal">Legal</Select.Option>
 				</Select>
 			</form>
-			<button onClick={handleSave}>Save</button>
+			<button onClick={handleSave} style={{marginTop: 20}}>Save</button>
 		</div>
 		<Modal
 			open={isOpen}

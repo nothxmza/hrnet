@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 export const columns = [
 	{
 		title: "First Name",
@@ -16,6 +18,9 @@ export const columns = [
 		dataIndex: "startDate",
 		defaultSortOrder: "ascend",
 		sorter: (a, b) => new Date(a.startDate) - new Date(b.startDate),
+		render: (startDate) => {
+			return dayjs(startDate, "YYYY-MM-DD").format("DD/MM/YYYY")
+		}
 	},
 	{
 		title: "Department",
@@ -28,6 +33,9 @@ export const columns = [
 		dataIndex: "dateOfBirth",
 		defaultSortOrder: "ascend",
 		sorter: (a, b) => new Date(a.dateOfBirth) - new Date(b.dateOfBirth),
+		render: (dateOfBirth) => {
+			return dayjs(dateOfBirth, "YYYY-MM-DD").format("DD/MM/YYYY")
+		}
 	},
 	{
 		title: "Street",

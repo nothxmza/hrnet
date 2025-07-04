@@ -5,7 +5,7 @@ export const Modal = ({children, open, onClose}) => {
   return (
 	<div className="overlay">
 		<div className="modal">
-			<button onClick={onClose}>X</button>
+			<button className="close-modal" onClick={onClose}>X</button>
 			{children}
 		</div>
 	</div>
