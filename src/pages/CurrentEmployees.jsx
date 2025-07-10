@@ -35,7 +35,7 @@ export const CurrentEmployees = () => {
 			<label htmlFor="search">Search</label>
 			<input type="text" onChange={handleSearchData} style={{width: 100}}/>
 		</div>
-		<Table columns={columns} dataSource={adaptDataForTab(dataTab)} pagination={{ current: 1, total: 100}}/>
+		<Table columns={columns} dataSource={adaptDataForTab(dataTab)} pagination={{showSizeChanger: true}}/>
 		</>
 	)
 }

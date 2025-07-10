@@ -86,7 +86,7 @@ export const Home = () => {
 				</Select>
 
 				<label htmlFor="zip-code">Zip Code</label>
-				<input id="zip-code" type="number" name="zipCode" />
+				<input id="zip-code" type="number" name="zipCode" pattern="[0-9]*" />
 				</fieldset>
 
 				<label htmlFor="department">Department</label>
