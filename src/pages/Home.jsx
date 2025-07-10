@@ -1,11 +1,12 @@
 import { states } from "../data/states";
-import { Modal } from "../components/Modal";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { createEmployer } from "../redux/employerSlice";
 import { Select, DatePicker } from 'antd';
 import { Link } from "react-router";
 import dayjs from 'dayjs';
+import { Modal } from "modal-component-openclass-p14"
+import "modal-component-openclass-p14/dist/index.css";
 
 
 export const Home = () => {
