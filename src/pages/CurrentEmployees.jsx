@@ -29,13 +29,13 @@ export const CurrentEmployees = () => {
 
 	return(
 		<>
-		<h1>Current Employees</h1>
-		<Link to="/">Back to Home</Link>
-		<div style={{display: "flex", alignItems: "center", gap: 5}}>
-			<label htmlFor="search">Search</label>
-			<input type="text" onChange={handleSearchData} style={{width: 100}}/>
-		</div>
-		<Table columns={columns} dataSource={adaptDataForTab(dataTab)} pagination={{showSizeChanger: true}}/>
+			<h1>Current Employees</h1>
+			<Link to="/">Back to Home</Link>
+			<div style={{display: "flex", alignItems: "center", gap: 5}}>
+				<label htmlFor="search">Search</label>
+				<input type="text" onChange={handleSearchData} style={{width: 100}}/>
+			</div>
+			<Table columns={columns} dataSource={adaptDataForTab(dataTab)} pagination={{showSizeChanger: true}}/>
 		</>
 	)
 }

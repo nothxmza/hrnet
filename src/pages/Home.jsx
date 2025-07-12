@@ -1,6 +1,6 @@
 import { states } from "../data/states";
 import { useRef, useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createEmployer } from "../redux/employerSlice";
 import { Select, DatePicker } from 'antd';
 import { Link } from "react-router";
@@ -18,9 +18,6 @@ export const Home = () => {
 	const [startDate, setStartDate] = useState("");
 
 	const dispatch = useDispatch()
-	const employerData = useSelector((state) => state.employers.employers);
-	console.log(employerData);
-
 
 	const handleSave = (e) => {
 		e.preventDefault();
@@ -30,8 +27,8 @@ export const Home = () => {
 		data.startDate = startDate;
 		data.state = state;
 		data.department = department;
-		console.log(data);
-		let size = Object.values(data).filter((value) =>  value === "")
+		const size = Object.values(data).filter((value) =>  value === "")
+
 		if(size.length > 0){
 			return alert("Please fill all fields");
 		}
